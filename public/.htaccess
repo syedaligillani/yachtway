@@ -1,0 +1,16 @@
+# Apache: serve Vite `dist` as a static SPA. Upload everything inside `dist/`
+# into your site root (e.g. public_html), including this file.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Skip rewrite for real files and directories (assets, videos, etc.)
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Client-side routes → index.html
+  RewriteRule . /index.html [L]
+</IfModule>
